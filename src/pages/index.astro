@@ -1,16 +1,76 @@
 ---
+// src/pages/index.astro 
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
+// 1. ดึงข้อมูล metadata ของบทความทั้งหมด
+const allPosts = await getCollection('blog');
+
+// 2. เรียงลำดับเอาบทความล่าสุดขึ้นก่อน
+const sortedPosts = allPosts.sort(
+  (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// 3. (ตัวอย่าง) ดึงมาแสดงแค่ 5 บทความล่าสุด
+const latestPosts = sortedPosts.slice(0, 5);
 ---
+<BaseLayout title="My Awesome Blog - Home">
+  <div class="hero">
+    <h1>👋 Welcome to my Blog!</h1>
+    <p>
+      This is where I share my programming journey, tips, and tutorials.
+    </p>
+  </div>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <h2>Latest Articles</h2>
+  <ul class="post-list">
+    <!-- 4. วนลูปแสดงแค่ข้อมูลเบื้องต้นและสร้าง Link -->
+    {latestPosts.map((post: CollectionEntry<'blog'>) => (
+      <li>
+        <a href={`/blog/${post.slug}/`}>
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+  
+  <div class="all-posts-link">
+     <a href="/blog">View all articles &rarr;</a>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .post-list a {
+    display: block;
+    padding: 1.5rem;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  .post-list a:hover {
+     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .post-list h3 {
+    margin-top: 0;
+  }
+  .all-posts-link {
+    text-align: right;
+    margin-top: 2rem;
+  }
+</style>
