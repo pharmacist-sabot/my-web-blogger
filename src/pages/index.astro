@@ -2,17 +2,18 @@
 // src/pages/index.astro 
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPostCard from '../components/BlogPostCard.astro'; 
 
-// 1. ดึงข้อมูล metadata ของบทความทั้งหมด
+// Get all blog posts
 const allPosts = await getCollection('blog');
 
-// 2. เรียงลำดับเอาบทความล่าสุดขึ้นก่อน
+// Sort posts by date, newest first
 const sortedPosts = allPosts.sort(
   (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
     b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-// 3. (ตัวอย่าง) ดึงมาแสดงแค่ 5 บทความล่าสุด
+// Get the 5 most recent posts
 const latestPosts = sortedPosts.slice(0, 5);
 ---
 <BaseLayout title="My Awesome Blog - Home">
@@ -24,17 +25,12 @@ const latestPosts = sortedPosts.slice(0, 5);
   </div>
 
   <h2>Latest Articles</h2>
-  <ul class="post-list">
-    <!-- 4. วนลูปแสดงแค่ข้อมูลเบื้องต้นและสร้าง Link -->
+  <div class="post-list">
+    <!-- 2. Use the BlogPostCard component in a loop -->
     {latestPosts.map((post: CollectionEntry<'blog'>) => (
-      <li>
-        <a href={`/blog/${post.slug}/`}>
-          <h3>{post.data.title}</h3>
-          <p>{post.data.description}</p>
-        </a>
-      </li>
+      <BlogPostCard post={post} />
     ))}
-  </ul>
+  </div>
   
   <div class="all-posts-link">
      <a href="/blog">View all articles &rarr;</a>
@@ -46,28 +42,12 @@ const latestPosts = sortedPosts.slice(0, 5);
   .hero {
     text-align: center;
     padding: 2rem 0;
+    margin-bottom: 1rem;
   }
+  /* 3. Simplify styles as the card styling is now in the component */
   .post-list {
-    list-style: none;
-    padding: 0;
     display: grid;
     gap: 1rem;
-  }
-  .post-list a {
-    display: block;
-    padding: 1.5rem;
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--card-border-color);
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    transition: box-shadow 0.2s ease-in-out;
-  }
-  .post-list a:hover {
-     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  .post-list h3 {
-    margin-top: 0;
   }
   .all-posts-link {
     text-align: right;

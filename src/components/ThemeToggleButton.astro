@@ -8,27 +8,11 @@
 
 <script>
   const themeToggleButton = document.getElementById('theme-toggle-button');
-  const sunIcon = document.getElementById('sun-icon');
-  const moonIcon = document.getElementById('moon-icon');
-
-  function updateIcon() {
-    if (document.documentElement.classList.contains('dark')) {
-      if (sunIcon) sunIcon.style.display = 'block';
-      if (moonIcon) moonIcon.style.display = 'none';
-    } else {
-      if (sunIcon) sunIcon.style.display = 'none';
-      if (moonIcon) moonIcon.style.display = 'block';
-    }
-  }
-
-  // Set initial icon state
-  updateIcon();
 
   if (themeToggleButton) {
     themeToggleButton.addEventListener('click', () => {
       const isDark = document.documentElement.classList.toggle('dark');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateIcon();
     });
   }
 </script>
@@ -47,7 +31,19 @@
   .icon {
     color: var(--font-color);
   }
-  #sun-icon, #moon-icon {
-    display: none; 
+
+  /* CSS handles the icon visibility based on the 'dark' class on <html> */
+  html.dark #sun-icon {
+    display: block;
+  }
+  html.dark #moon-icon {
+    display: none;
+  }
+  
+  html:not(.dark) #sun-icon {
+    display: none;
+  }
+  html:not(.dark) #moon-icon {
+    display: block;
   }
 </style>
