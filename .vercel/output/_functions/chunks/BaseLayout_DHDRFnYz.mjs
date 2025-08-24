@@ -3,8 +3,8 @@ import { Traverse } from 'neotraverse/modern';
 import pLimit from 'p-limit';
 import { z } from 'zod';
 import { r as removeBase, i as isRemotePath, p as prependForwardSlash } from './path_mk0j0CbE.mjs';
-import { V as VALID_INPUT_FORMATS } from './consts_BmVDRGlB.mjs';
-import { A as AstroError, U as UnknownContentCollectionError, c as createComponent, R as RenderUndefinedEntryError, u as unescapeHTML, a as renderTemplate, f as renderUniqueStylesheet, g as renderScriptElement, h as createHeadAndContent, r as renderComponent, m as maybeRenderHead, i as renderScript, b as createAstro, e as addAttribute, j as renderHead, d as renderSlot } from './astro/server_e6GfZgpN.mjs';
+import { V as VALID_INPUT_FORMATS } from './consts_Du7EM0Nf.mjs';
+import { A as AstroError, U as UnknownContentCollectionError, c as createComponent, R as RenderUndefinedEntryError, u as unescapeHTML, a as renderTemplate, f as renderUniqueStylesheet, g as renderScriptElement, h as createHeadAndContent, r as renderComponent, m as maybeRenderHead, i as renderScript, b as createAstro, e as addAttribute, j as renderHead, d as renderSlot } from './astro/server_BAthJS93.mjs';
 import 'kleur/colors';
 import * as devalue from 'devalue';
 import 'clsx';
@@ -68,7 +68,7 @@ class ImmutableDataStore {
    */
   static async fromModule() {
     try {
-      const data = await import('./_astro_data-layer-content_DlL5UPyN.mjs');
+      const data = await import('./_astro_data-layer-content_9U8iGQj5.mjs');
       if (data.default instanceof Map) {
         return ImmutableDataStore.fromMap(data.default);
       }
@@ -227,7 +227,7 @@ const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;
 async function updateImageReferencesInBody(html, fileName) {
   const { default: imageAssetMap } = await import('./content-assets_DleWbedO.mjs');
   const imageObjects = /* @__PURE__ */ new Map();
-  const { getImage } = await import('./_astro_assets_DZDyg1om.mjs').then(n => n._);
+  const { getImage } = await import('./_astro_assets_DVbhd916.mjs').then(n => n._);
   for (const [_full, imagePath] of html.matchAll(CONTENT_LAYER_IMAGE_REGEX)) {
     try {
       const decodedImagePath = JSON.parse(imagePath.replaceAll("&#x22;", '"'));
@@ -289,7 +289,7 @@ async function renderEntry(entry) {
   }
   if (entry.deferredRender) {
     try {
-      const { default: contentModules } = await import('./content-modules_XOizPyhW.mjs');
+      const { default: contentModules } = await import('./content-modules_CyqA-SyG.mjs');
       const renderEntryImport = contentModules.get(entry.filePath);
       return render({
         collection: "",

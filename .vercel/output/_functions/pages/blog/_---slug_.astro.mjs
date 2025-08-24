@@ -1,6 +1,6 @@
-import { c as createComponent, b as createAstro, r as renderComponent, a as renderTemplate, m as maybeRenderHead, d as renderSlot, e as addAttribute } from '../../chunks/astro/server_e6GfZgpN.mjs';
+import { c as createComponent, b as createAstro, r as renderComponent, a as renderTemplate, m as maybeRenderHead, d as renderSlot, e as addAttribute } from '../../chunks/astro/server_BAthJS93.mjs';
 import 'kleur/colors';
-import { $ as $$BaseLayout, g as getCollection } from '../../chunks/BaseLayout_Cv3SKZh1.mjs';
+import { $ as $$BaseLayout, g as getCollection } from '../../chunks/BaseLayout_DHDRFnYz.mjs';
 /* empty css                                     */
 export { renderers } from '../../renderers.mjs';
 
