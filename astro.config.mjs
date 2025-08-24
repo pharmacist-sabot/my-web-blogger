@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // Astro Integrations
 import mdx from '@astrojs/mdx';
-import vercel from '@astrojs/vercel/serverless'; // แนะนำให้ระบุประเภท deploy เป็น /serverless หรือ /static
+import vercel from '@astrojs/vercel';
 import Pwa from '@vite-pwa/astro';
 
 export default defineConfig({
